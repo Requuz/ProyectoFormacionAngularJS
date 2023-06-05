@@ -1,0 +1,64 @@
+body {
+    font-family: "Star Jedi", cursive;
+    background: #000 url(//cssanimation.rocks/demo/starwars/images/bg.jpg);
+    color: #f0e68c;
+}
+
+h1 {
+    color: #ffe81f;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.5rem;
+    border: 1px solid #f0e68c;
+    text-align: center;
+}
+
+.table thead {
+    background-color: #3a3a3a;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #2a2a2a;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #1c1c1c;
+}
+
+.table tbody tr:hover {
+    background-color: #505050;
+}
+
+.table th {
+    font-family: "Star Jedi", cursive;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .table th,
+    .table td {
+        padding: 0.5rem;
+    }
+    .table th {
+        font-size: 1.2rem;
+    }
+}

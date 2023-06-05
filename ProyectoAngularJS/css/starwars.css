@@ -1,0 +1,96 @@
+@import url('menu.css');
+body {
+    background: #000 url(//cssanimation.rocks/demo/starwars/images/bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed !important;
+    margin-top: 1%;
+    font-family: 'Star Jedi', cursive;
+}
+
+h1,
+h3 {
+    color: #ffe81f;
+    text-align: center;
+}
+
+strong {
+    color: #f0e68c;
+}
+
+main {
+    width: 95%;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem;
+}
+
+.card {
+    background-color: #232323;
+    color: #fff;
+    border-radius: 10px;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 30%;
+    transition: .5s all;
+    cursor: default;
+}
+
+.card::before {
+    position: fixed;
+    content: "";
+    box-shadow: 0 0 100px 40px #ffffff08;
+    top: -10%;
+    left: -100%;
+    transform: rotate(-45deg);
+    height: 60rem;
+    transition: .5s all;
+}
+
+.card:hover {
+    border: 1px solid #ffffff44;
+    box-shadow: 0 1.75px 12.5px 2.5px #ffe81f;
+    transform: scale(1.030);
+    filter: brightness(1.2);
+}
+
+.card img {
+    transition: all 0.5s;
+}
+
+.card:hover img {
+    transform: translate(-20px, -40px) rotate(-15deg) scale(1.4);
+    transition: all 0.5s;
+}
+
+.card:before {
+    filter: brightness(.5);
+    top: -100%;
+    left: 200%;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.card-img {
+    margin: 0 auto;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 10px solid rgba(0, 0, 0, .25);
+    object-fit: cover;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

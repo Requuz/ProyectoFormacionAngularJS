@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pilotsApp">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personajes</title>
+    <!--Cargar bootstrap y diversos estilos-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/starwars.css" />
+    <link rel="stylesheet" href="css/menu.css" />
+</head>
+
+<!--Menu para gestionar la navegacion-->
+
+<body>
+    <div id="container">
+        <div id="burger">
+            <div class="bun top"></div>
+            <div class="filling"></div>
+            <div class="bun bottom"></div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="../index.html">Inicio</a>
+            </li>
+            <li class="green">
+                <a href="../starships.html">Naves</a>
+            </li>
+            <li class="red">
+                <a href="../pilots.html">Pilotos</a>
+            </li>
+            <li class="purple">
+                <a href="../starshipPilot.html">Naves y pilotos</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!---->
+
+    <div class="main" ng-controller="PilotsController">
+        <h1>Personajes</h1>
+        <!--Contenedor para editar las tarjetas que muestran los datos de cada personaje-->
+        <div class="cards-container">
+            <div class="card" ng-repeat="pilot in pilots">
+                <img ng-src="/images/people/{{ pilot.name }}.jpg" alt="{{ pilot.name }}" class="card-img" />
+                <h3>{{ pilot.name }}</h3>
+                <p><strong>ID:</strong> {{ pilot.id }}</p>
+                <p><strong>Altura:</strong> {{ pilot.height }}</p>
+                <p><strong>Peso:</strong> {{ pilot.mass }}</p>
+                <p><strong>Color de pelo:</strong> {{ pilot.hair_color }}</p>
+                <p><strong>Color de piel:</strong> {{ pilot.skin_color }}</p>
+                <p><strong>Color de ojos:</strong> {{ pilot.eye_color }}</p>
+                <p><strong>Año de nacimiento:</strong> {{ pilot.birth_year }}</p>
+                <p><strong>Género:</strong> {{ pilot.gender }}</p>
+                <p><strong>Mundo natal:</strong> {{ pilot.homeworld }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="controllers/pilots.js"></script>
+    <script>
+        const nav = document.querySelector("nav");
+
+        document.querySelector("#burger").addEventListener("click", (e) => {
+            e.currentTarget.classList.toggle("active");
+            nav.classList.toggle("show");
+        });
+    </script>
+</body>
+
+</html>

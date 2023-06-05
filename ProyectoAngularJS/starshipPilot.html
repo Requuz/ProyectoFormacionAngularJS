@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="starshipPilotsApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naves y pilotos</title>
+    <!--Cargar bootstrap y diversos estilos-->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="css/starshipPilot.css" />
+    <link rel="stylesheet" href="css/menu.css" />
+  </head>
+
+  <body ng-controller="StarshipPilotController">
+    <!--Menu para gestionar la navegacion-->
+    <div id="container">
+      <div id="burger">
+        <div class="bun top"></div>
+        <div class="filling"></div>
+        <div class="bun bottom"></div>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="../index.html">Inicio</a>
+        </li>
+        <li class="green">
+          <a href="../starships.html">Naves</a>
+        </li>
+        <li class="red">
+          <a href="../pilots.html">Pilotos</a>
+        </li>
+        <li class="purple">
+          <a href="../starshipPilot.html">Naves y pilotos</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!---->
+
+    <h1>Naves y pilotos</h1>
+
+    <div class="main" ng-controller="StarshipPilotController">
+      <!--Contenedor para editar las tarjetas que muestran los datos de cada nave-->
+      <div class="cards-container">
+        <div class="card" ng-repeat="entry in groupPilotsByStarship()">
+          <img
+            ng-src="/images/starships/{{ getStarshipName(entry.starship_id) }}.jpg"
+            alt="{{ getStarshipName(entry.starship_id) }}"
+            class="card-img"
+          />
+          <br />
+          <h3>{{ getStarshipName(entry.starship_id) }}</h3>
+          <p>
+            <strong>Precio:</strong> {{
+            base10to15(getStarshipPrice(entry.starship_id)) }}
+          </p>
+          <p>
+            <strong>Pilotos:</strong>
+            <span> {{ getPilotsList(entry.pilots) }} </span>
+          </p>
+        </div>
+      </div>
+      <!---->
+
+      <!--Contenedor para gestionar, borrar, vincular, desvincular pilotos-->
+      <div class="actions">
+        <div class="row">
+          <div class="col-md-12">
+            <form>
+              <div class="form-group">
+                <h3>Gestión de pilotos y naves</h3>
+                <br />
+                <h5>Eliminar piloto</h5>
+                <div id="deleteDiv">
+                  <div id="deleteAlert">
+                    <p>Piloto {{pilot.name}} eliminado correctamente</p>
+                  </div>
+                </div>
+                <br />
+                <label for="pilotId">Selecciona un piloto a eliminar:</label>
+                <select
+                  class="form-control"
+                  id="pilotId"
+                  ng-model="selectedPilotToDelete"
+                  ng-options="pilot.id as pilot.name for pilot in pilots | orderBy:'name'"
+                  required
+                ></select>
+              </div>
+            </form>
+            <button
+              id="deleteButton"
+              type="button"
+              ng-click="deletePilot(selectedPilotToDelete)"
+              class="btn btn-danger"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <br />
+            <h5>Vincular/Desvincular</h5>
+            <div id="linkDiv">
+              <div id="linkAlert">
+                <p id="link-unlink-text">Vinculación/desvinculación</p>
+              </div>
+            </div>
+            <br />
+            <form>
+              <div class="form-group">
+                <label for="pilot_id">Selecciona un piloto:</label>
+                <select
+                  class="form-control"
+                  id="pilot_id"
+                  ng-model="pilotId"
+                  ng-options="pilot.id as pilot.name for pilot in pilots | orderBy:'name'"
+                  required
+                ></select>
+              </div>
+              <div class="form-group">
+                <label for="starship_id">Selecciona una nave:</label>
+                <select
+                  class="form-control"
+                  id="starship_id"
+                  ng-model="starshipId"
+                  ng-options="starship.id as starship.name for starship in starships | orderBy:'name'"
+                  required
+                ></select>
+              </div>
+            </form>
+            <div class="button-container">
+              <button
+                type="button"
+                ng-click="linkPilot(pilotId, starshipId)"
+                class="btn btn-primary linkButton"
+                ng-disabled="!pilotId"
+              >
+                Vincular piloto a nave
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning linkButton"
+                ng-click="unlinkPilot(pilotId, starshipId)"
+                ng-disabled="!starshipId"
+              >
+                Desvincular piloto y nave
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js "></script>
+    <script src="controllers\starshipPilot.js "></script>
+    <script>
+      const nav = document.querySelector("nav");
+      const body = document.getElementsByTagName("body");
+
+      document.querySelector("#burger").addEventListener("click", (e) => {
+        e.currentTarget.classList.toggle("active");
+        nav.classList.toggle("show");
+      });
+    </script>
+    <script>
+      document
+        .getElementById("deleteButton")
+        .addEventListener("click", function () {
+          var alert = document.getElementById("deleteAlert");
+          alert.style.visibility = "visible";
+          alert.classList.add("animated");
+
+          setTimeout(function () {
+            alert.style.visibility = "hidden";
+            alert.classList.remove("animated");
+          }, 5000);
+        });
+
+      document
+        .querySelectorAll(".linkButton")
+        .forEach(function (linkButton, index) {
+          linkButton.addEventListener("click", function () {
+            var alert = document.getElementById("linkAlert");
+            var text = document.getElementById("link-unlink-text");
+
+            // Cambia el texto dependiendo del botón presionado
+            if (index === 0) {
+              text.innerText = "Vinculación realizada correctamente";
+            } else if (index === 1) {
+              text.innerText = "Desvinculación realizada correctamente";
+            }
+
+            alert.style.visibility = "visible";
+            alert.classList.add("animated");
+
+            setTimeout(function () {
+              alert.style.visibility = "hidden";
+              alert.classList.remove("animated");
+            }, 5000);
+          });
+        });
+    </script>
+  </body>
+</html>

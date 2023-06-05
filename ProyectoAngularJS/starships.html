@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="starshipsApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naves</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/starwars.css" />
+    <link rel="stylesheet" href="css/menu.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="burger">
+        <div class="bun top"></div>
+        <div class="filling"></div>
+        <div class="bun bottom"></div>
+      </div>
+    </div>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="../index.html">Inicio</a>
+        </li>
+        <li class="green">
+          <a href="../starships.html">Naves</a>
+        </li>
+        <li class="red">
+          <a href="../pilots.html">Pilotos</a>
+        </li>
+        <li class="purple">
+          <a href="../starshipPilot.html">Naves y pilotos</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main" ng-controller="StarshipController">
+      <h1>Naves</h1>
+      <div class="cards-container">
+        <div class="card" ng-repeat="starship in starships">
+          <img
+            ng-src="/images/starships/{{ starship.name }}.jpg"
+            alt="{{ starship.name }}"
+            class="card-img"
+          />
+          <h3>{{ starship.name }}</h3>
+          <p><strong>ID:</strong> {{ starship.id }}</p>
+          <p><strong>Modelo:</strong> {{ starship.model }}</p>
+          <p><strong>Fabricante:</strong> {{ starship.manufacturer }}</p>
+          <p>
+            <strong>Costo en créditos:</strong> {{ starship.cost_in_credits }}
+          </p>
+          <p><strong>Longitud:</strong> {{ starship.length }}</p>
+          <p>
+            <strong>Velocidad atmosférica máxima:</strong> {{
+            starship.max_atmosphering_speed }}
+          </p>
+          <p><strong>Equipo requerido:</strong> {{ starship.crew }}</p>
+          <p><strong>Pasajeros:</strong> {{ starship.passengers }}</p>
+          <p>
+            <strong>Capacidad de carga:</strong> {{ starship.cargo_capacity }}
+          </p>
+          <p><strong>Consumibles:</strong> {{ starship.consumables }}</p>
+          <p>
+            <strong>Clasificación del navío:</strong> {{ starship.starship_class
+            }}
+          </p>
+          <p>
+            <strong>Velocidad en el hiperespacio:</strong> {{
+            starship.hyperdrive_rating }}
+          </p>
+          <p><strong>MGLT:</strong> {{ starship.MGLT }}</p>
+          <p>
+            <strong>Pilotos:</strong>
+            <span ng-repeat="pilot in starship.pilots">
+              {{ pilot.name }}<span ng-if="!$last">, </span>
+            </span>
+            <span ng-if="!starship.pilots.length">Desconocido</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="controllers/starships.js"></script>
+    <script>
+      const nav = document.querySelector("nav");
+
+      document.querySelector("#burger").addEventListener("click", (e) => {
+        e.currentTarget.classList.toggle("active");
+        nav.classList.toggle("show");
+      });
+    </script>
+  </body>
+</html>
